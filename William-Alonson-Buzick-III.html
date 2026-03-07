@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>William Alonson Buzick III Memorial Website</title>
+  <style>
+    :root {
+      --bg: #f7f4ef;
+      --panel: rgba(255,255,255,0.82);
+      --text: #2f2a24;
+      --muted: #6e655b;
+      --accent: #8a6d52;
+      --accent-dark: #5f4a37;
+      --border: rgba(95, 74, 55, 0.16);
+      --shadow: 0 12px 30px rgba(70, 54, 39, 0.12);
+      --radius: 22px;
+      --max: 1080px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      background:
+        linear-gradient(rgba(247,244,239,.93), rgba(247,244,239,.96)),
+        url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80") center/cover fixed;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: var(--accent-dark); }
+
+    .wrap {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(10px);
+      background: rgba(247, 244, 239, 0.82);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+    }
+
+    .brand {
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 0.98rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 999px;
+    }
+
+    .nav-links a:hover {
+      background: rgba(138, 109, 82, 0.08);
+    }
+
+    .hero {
+      min-height: 88vh;
+      display: grid;
+      place-items: center;
+      padding: 48px 0 28px;
+    }
+
+    .hero-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      border-radius: 34px;
+      padding: 38px;
+      text-align: center;
+      max-width: 850px;
+    }
+
+    .portrait {
+      width: 170px;
+      height: 170px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 6px solid rgba(255,255,255,0.9);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+    }
+
+    .portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    h1, h2, h3 { line-height: 1.2; margin: 0 0 12px; }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 4.5rem);
+      font-weight: 500;
+    }
+
+    .dates {
+      font-size: 1.15rem;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .lead {
+      font-size: 1.15rem;
+      max-width: 45rem;
+      margin: 0 auto 22px;
+      color: #433b34;
+    }
+
+    .quote {
+      margin: 24px auto 0;
+      font-style: italic;
+      color: var(--accent-dark);
+      max-width: 38rem;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 26px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      transition: transform .18s ease, background .18s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn.primary {
+      background: var(--accent-dark);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    section {
+      padding: 28px 0 34px;
+    }
+
+    .section-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .section-head p { margin: 0; color: var(--muted); }
+
+    .story-grid,
+    .gallery,
+    .memory-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .story-grid {
+      grid-template-columns: 1.15fr 0.85fr;
+    }
+
+    .story-copy p:first-child { margin-top: 0; }
+
+    .side-note {
+      background: rgba(255,255,255,.72);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 16px;
+      padding-left: 18px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 5px;
+      top: 2px;
+      bottom: 2px;
+      width: 2px;
+      background: rgba(138, 109, 82, 0.25);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 0 0 0 18px;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -1px;
+      top: 8px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(138, 109, 82, 0.13);
+    }
+
+    .year {
+      font-size: .95rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .gallery {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .photo {
+      border-radius: 18px;
+      overflow: hidden;
+      background: rgba(255,255,255,.7);
+      border: 1px solid var(--border);
+    }
+
+    .photo img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      display: block;
+    }
+
+    .caption {
+      padding: 12px 14px;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .memory-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    blockquote.memory {
+      margin: 0;
+      background: rgba(255,255,255,.72);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      font-size: 1rem;
+    }
+
+    blockquote.memory footer {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .footer {
+      padding: 32px 0 48px;
+      text-align: center;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .divider {
+      width: 88px;
+      height: 1px;
+      background: rgba(138, 109, 82, 0.25);
+      margin: 14px auto 22px;
+    }
+
+    @media (max-width: 900px) {
+      .story-grid,
+      .gallery,
+      .memory-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card,
+      .section-card { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <div class="brand">In Loving Memory</div>
+      <nav class="nav-links">
+        <a href="#story">Story</a>
+        <a href="#timeline">Timeline</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#memories">Memories</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-card">
+          <div class="portrait">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80" alt="Portrait" />
+          </div>
+          <h1>William Alonson Buzick III</h1>
+          <div class="dates">March 12, 1948 – November 8, 2025</div>
+          <div class="divider"></div>
+          <p class="lead">
+            A life of kindness, humor, strength, and quiet generosity. This page honors Jane’s story,
+            the people she loved, and the many memories she left behind.
+          </p>
+          <p class="quote">“What we once enjoyed and deeply loved we can never lose, for all that we love deeply becomes part of us.”</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#story">Read Her Story</a>
+            <a class="btn" href="#memories">Share a Memory</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="story">
+      <div class="wrap">
+        <div class="section-card">
+          <div class="section-head">
+            <div>
+              <h2>Her Story</h2>
+              <p>A short tribute that captures who she was.</p>
+            </div>
+          </div>
+          <div class="story-grid">
+            <div class="story-copy">
+              <p>
+                Jane Elizabeth Carter lived with grace, deep compassion, and a gift for making people feel at home.
+                She was the steady center of her family, the first to offer encouragement, and the last to ask for anything in return.
+              </p>
+              <p>
+                She loved morning light, handwritten notes, garden roses, family dinners, and long talks that turned into laughter.
+                Whether through quiet acts of service or unforgettable celebrations, Jane had a way of making ordinary days feel meaningful.
+              </p>
+              <p>
+                Her legacy lives on in every tradition she started, every lesson she passed down, and every person who was better for knowing her.
+              </p>
+            </div>
+            <aside class="side-note">
+              <h3>Favorite Things</h3>
+              <p><strong>Known for:</strong> Warm hugs, generous hospitality, thoughtful advice</p>
+              <p><strong>Loved:</strong> Family gatherings, gardening, music, Sunday dinners</p>
+              <p><strong>Legacy:</strong> A home filled with love and a life that brought people together</p>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="timeline">
+      <div class="wrap">
+        <div class="section-card">
+          <div class="section-head">
+            <div>
+              <h2>Life Timeline</h2>
+              <p>Key moments and milestones worth remembering.</p>
+            </div>
+          </div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="year">1948</div>
+              <strong>Born in Springfield, Illinois</strong>
+              <div>Jane was born into a close-knit family that shaped her lifelong devotion to home and community.</div>
+            </div>
+            <div class="timeline-item">
+              <div class="year">1971</div>
+              <strong>Married her best friend</strong>
+              <div>She began the partnership that would become the center of a beautiful family story.</div>
+            </div>
+            <div class="timeline-item">
+              <div class="year">1980s–1990s</div>
+              <strong>Raised a family and built traditions</strong>
+              <div>Holiday meals, weekend outings, and a welcoming home became her signature gifts to everyone around her.</div>
+            </div>
+            <div class="timeline-item">
+              <div class="year">2005</div>
+              <strong>Became a grandmother</strong>
+              <div>One of her greatest joys was passing along stories, recipes, and unconditional love to the next generation.</div>
+            </div>
+            <div class="timeline-item">
+              <div class="year">2025</div>
+              <strong>Remembered with love</strong>
+              <div>Her memory continues through every life she touched and every tradition that carries her spirit forward.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery">
+      <div class="wrap">
+        <div class="section-card">
+          <div class="section-head">
+            <div>
+              <h2>Photo Gallery</h2>
+              <p>Replace these with family photos and meaningful captions.</p>
+            </div>
+          </div>
+          <div class="gallery">
+            <figure class="photo">
+              <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=900&q=80" alt="Family moment" />
+              <figcaption class="caption">A favorite family gathering full of laughter and warmth.</figcaption>
+            </figure>
+            <figure class="photo">
+              <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=900&q=80" alt="Garden flowers" />
+              <figcaption class="caption">Her garden was one of the many places where her patience and care were visible.</figcaption>
+            </figure>
+            <figure class="photo">
+              <img src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?auto=format&fit=crop&w=900&q=80" alt="Sunlit landscape" />
+              <figcaption class="caption">A peaceful place that reflects the calm and beauty she brought to others.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="memories">
+      <div class="wrap">
+        <div class="section-card">
+          <div class="section-head">
+            <div>
+              <h2>Words of Remembrance</h2>
+              <p>Add messages from family and friends.</p>
+            </div>
+          </div>
+          <div class="memory-grid">
+            <blockquote class="memory">
+              “She made every person feel seen. That was her rare gift.”
+              <footer>— Daughter</footer>
+            </blockquote>
+            <blockquote class="memory">
+              “Her table always had room for one more, and her heart did too.”
+              <footer>— Family Friend</footer>
+            </blockquote>
+            <blockquote class="memory">
+              “Her love continues in all of us, every single day.”
+              <footer>— Grandson</footer>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      Created with love in memory of Jane Elizabeth Carter.<br />
+      To publish on GitHub Pages, save this file as <strong>index.html</strong> in your repository.
+    </div>
+  </footer>
+</body>
+</html>
